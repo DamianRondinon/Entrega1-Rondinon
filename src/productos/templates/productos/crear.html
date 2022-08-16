@@ -1,29 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Agregar Productos</title>
-  </head>
-  <body>
-    <form method="post">
-      {% csrf_token %}
+{% extends 'productos/base.html' %}
+<!-- -->
 
-      <p>
-        Ingrese nombre:
-        <input type="text" name="nombre" />
-      </p>
-      <p>
-        Ingrese el precio:
-        <input type="number" name="precio" />
-      </p>
+{% block listado_productos %}
+<!-- -->
 
-      <p>
-        Ingrese la marca:
-        <input type="text" name="marca" />
-      </p>
-      <input type="submit" value="Crear" />
-    </form>
-  </body>
-</html>
+{% for producto in productos %}
+
+<div class="form">
+  <form action="/crearProducto/" method="get">
+    {% csrf_token %}
+
+    <p>
+      Ingrese nombre:
+      <input type="text" name="nombre" />
+    </p>
+    <p>
+      Ingrese el precio:
+      <input type="number" name="precio" />
+    </p>
+
+    <p>
+      Ingrese la marca:
+      <input type="text" name="marca" />
+    </p>
+    <input type="submit" value="Crear" />
+  </form>
+</div>
+
+{% endfor %}
+<!-- -->
+{% endblock listado_productos %}

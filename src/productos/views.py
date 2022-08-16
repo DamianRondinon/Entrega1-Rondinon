@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from productos.models import Producto
 from productos.forms import FormularioBusqueda
 from productos.forms import FormularioAgregar
@@ -25,17 +25,13 @@ def index(request):
         formulario = FormularioBusqueda()
         return render(request, "productos/index.html", {"productos": listado_productos, "formulario": formulario})
 
-    
-def crear_producto(request):
-    if request.method == "GET":
-     formulario = FormularioAgregar()
-     return render(request, "productos/crear.html", {"formulario": formulario})
 
-    else:
-        nombre = request.POST["nombre"]
-        precio = request.POST["precio"]
-        marca = request.POST["marca"]
-        ForumularioAgregar = formularioAgregar(nombre=nombre, precio=precio, marca=marca)
 
-        producto.save()
-        return render(request, "productos/index.html")
+def crearProducto(request):
+    nombre = request.POST["nombre"]
+    precio = request.POST["precio"]
+    marca = request.POST["marca"]
+
+    producto=Producto.objects.create(nombre=nombre, precio=precio, marca=marca)
+    return redirect("/")
+
